@@ -20,7 +20,8 @@ public class ProductItemService {
 
     @Transactional
     public ProductItem getProductItem(Long id) {
-        return productItemRepository.getById(id);
+        return productItemRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ErrorCode.PRODUCT_ITEM_NOT_FOUND));
     }
 
     @Transactional

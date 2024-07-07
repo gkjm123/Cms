@@ -139,9 +139,9 @@ public class CartApplication {
             //담긴 메시지가 하나라도 있다면 카트의 메시지 부분에 다 넣어준다.
             if(!tmpMessage.isEmpty()) {
                 StringBuilder builder = new StringBuilder();
-                builder.append(cartProduct.getName() + " 상품의 변동사항: ");
+                builder.append(cartProduct.getName()).append(" 상품의 변동사항: ");
                 for (String message : tmpMessage) {
-                    builder.append("\n" + message);
+                    builder.append("\n").append(message);
                 }
                 cart.addMessage(builder.toString());
             }

@@ -44,7 +44,6 @@ public class SignUpApplication {
                 .build();
 
         mailgunClient.sendEmail(sendMailForm);
-
         signUpCustomerService.changeCustomerValidateEmail(c.getId(), code);
         return "회원가입 성공";
     }
@@ -77,11 +76,7 @@ public class SignUpApplication {
     }
 
     private String getVerificationEmailBody(String email, String name, String type, String code) {
-        StringBuilder builder = new StringBuilder();
-        return builder.append("Hello ").append(name).append("! 메일 인증을 위해 링크를 클릭해주세요.\n\n")
-                .append("http://localhost:8081/signup/" + type + "/verify?email=")
-                .append(email)
-                .append("&code=")
-                .append(code).toString();
+        return "Hello " + name + "! 메일 인증을 위해 링크를 클릭해주세요.\n\n" +
+                "http://localhost:8081/signup/" + type + "/verify?email=" + email + "&code=" + code;
     }
 }

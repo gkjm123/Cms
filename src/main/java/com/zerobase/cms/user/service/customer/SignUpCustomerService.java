@@ -47,12 +47,10 @@ public class SignUpCustomerService {
     }
 
     @Transactional
-    public LocalDateTime changeCustomerValidateEmail(Long customerId, String verificationCode) {
+    public void changeCustomerValidateEmail(Long customerId, String verificationCode) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
-
         customer.setVerificationCode(verificationCode);
         customer.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
-        return customer.getVerifyExpiredAt();
     }
 }

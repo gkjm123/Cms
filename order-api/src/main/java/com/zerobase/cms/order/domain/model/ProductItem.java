@@ -30,7 +30,6 @@ public class ProductItem extends BaseEntity{
     private Integer count;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
     private Product product;
 
     public static ProductItem of(Long sellerId, AddProductItemForm form) {

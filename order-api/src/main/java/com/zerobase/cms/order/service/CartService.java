@@ -22,9 +22,8 @@ public class CartService {
         return redisClient.get(customerId, Cart.class);
     }
 
-    public Cart putCart(Long customerId, Cart cart) {
+    public void putCart(Long customerId, Cart cart) {
         redisClient.put(customerId, cart);
-        return cart;
     }
 
     public Cart addCart(Long customerId, AddProductCartForm form) {

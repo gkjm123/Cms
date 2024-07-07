@@ -27,7 +27,6 @@ public class Product extends BaseEntity{
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
     private List<ProductItem> productItems = new ArrayList<>();
 
     public static Product of(Long sellerId, AddProductForm form) {

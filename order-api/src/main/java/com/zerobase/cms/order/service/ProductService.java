@@ -5,7 +5,6 @@ import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.product.AddProductForm;
 import com.zerobase.cms.order.domain.product.UpdateProductForm;
 import com.zerobase.cms.order.domain.product.UpdateProductItemForm;
-import com.zerobase.cms.order.domain.repository.ProductItemRepository;
 import com.zerobase.cms.order.domain.repository.ProductRepository;
 import com.zerobase.cms.order.exception.CustomException;
 import com.zerobase.cms.order.exception.ErrorCode;
@@ -16,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-
     private final ProductRepository productRepository;
-    private final ProductItemRepository productItemRepository;
 
     @Transactional
     public Product addProduct(Long sellerId, AddProductForm form) {

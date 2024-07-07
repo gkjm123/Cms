@@ -12,19 +12,18 @@ import java.util.Date;
 import java.util.Objects;
 
 public class JwtAuthenticationProvider {
-    private String secretKey = "secretKey";
-
-    private long tokenValidTime = 1000L * 60 * 60 * 24;
+    private final String secretKey = "secretKey";
 
     public String createToken(String userPk, Long id, UserType userType) {
         Claims claims = Jwts.claims().setSubject(Aes256Util.encrypt(userPk)).setId(Aes256Util.encrypt(id.toString()));
         claims.put("roles", userType);
         Date now = new Date();
 
+        long tokenValidTime = 1000L * 60 * 60 * 24;
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime()+tokenValidTime))
+                .setExpiration(new Date(now.getTime()+ tokenValidTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
