@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class ExceptionController {
-
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(CustomException.class)
     public ResponseEntity<ExceptionResponse> customRequestException(final CustomException c) {
-        log.warn("api Exception: {}", c.getErrorCode());
+        log.warn("예외 발생: {}", c.getMessage());
         return ResponseEntity.badRequest().body(new ExceptionResponse(c.getMessage(), c.getErrorCode()));
     }
 

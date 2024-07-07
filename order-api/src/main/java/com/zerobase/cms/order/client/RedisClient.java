@@ -11,13 +11,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import java.io.File;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class RedisClient {
-
     private final RedisTemplate<String, Object> redisTemplate;
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -49,6 +46,5 @@ public class RedisClient {
         } catch (JsonProcessingException e) {
             throw new CustomException(ErrorCode.CART_CHANGE_FAIL);
         }
-
     }
 }

@@ -18,7 +18,10 @@ public class ProductDto {
     private List<ProductItemDto> items;
 
     public static ProductDto from(Product product) {
-        return new ProductDto(product.getId(), product.getName(), product.getDescription(),
+        return new ProductDto(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
                 product.getProductItems().stream().map(ProductItemDto::from).toList());
     }
 

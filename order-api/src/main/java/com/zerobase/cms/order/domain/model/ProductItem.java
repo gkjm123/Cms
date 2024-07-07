@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 
 @Entity
 @Setter

@@ -1,14 +1,12 @@
 package com.zerobase.domain.config;
 
-import com.zerobase.domain.domain.common.UserVo;
 import com.zerobase.domain.domain.common.UserType;
+import com.zerobase.domain.domain.common.UserVo;
 import com.zerobase.domain.util.Aes256Util;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Objects;
@@ -45,8 +43,4 @@ public class JwtAuthenticationProvider {
         Claims c = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         return new UserVo(Long.valueOf(Objects.requireNonNull(Aes256Util.decrypt(c.getId()))), Aes256Util.decrypt(c.getSubject()));
     }
-
-
-
-
 }

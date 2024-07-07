@@ -26,5 +26,4 @@ public class AddProductCartForm {
         private Integer count;
         private Integer price;
     }
-
 }

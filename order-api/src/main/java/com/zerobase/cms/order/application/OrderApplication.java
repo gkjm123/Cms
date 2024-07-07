@@ -5,7 +5,6 @@ import com.zerobase.cms.order.client.user.ChangeBalanceForm;
 import com.zerobase.cms.order.client.user.CustomerDto;
 import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.redis.Cart;
-import com.zerobase.cms.order.domain.repository.ProductItemRepository;
 import com.zerobase.cms.order.exception.CustomException;
 import com.zerobase.cms.order.exception.ErrorCode;
 import com.zerobase.cms.order.service.ProductItemService;
@@ -19,7 +18,6 @@ public class OrderApplication {
 
     private final CartApplication cartApplication;
     private final UserClient userClient;
-    private final ProductItemRepository productItemRepository;
     private final ProductItemService productItemService;
 
     @Transactional

@@ -1,12 +1,10 @@
 package com.zerobase.cms.user.service.seller;
 
 import com.zerobase.cms.user.domain.model.Seller;
-import com.zerobase.cms.user.domain.model.Seller;
 import com.zerobase.cms.user.domain.repository.SellerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service

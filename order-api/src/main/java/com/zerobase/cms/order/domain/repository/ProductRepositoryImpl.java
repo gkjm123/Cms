@@ -11,9 +11,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepositoryCustom{
-
     private final JPAQueryFactory queryFactory;
-
 
     @Override
     public List<Product> searchByName(String name) {
@@ -23,7 +21,5 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom{
         return queryFactory.selectFrom(product)
                 .where(product.name.like(search))
                 .fetch();
-
-
     }
 }

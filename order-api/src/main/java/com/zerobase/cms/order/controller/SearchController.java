@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("/search/product")
 @RequiredArgsConstructor
 public class SearchController {
-
     private final ProductSearchService productSearchService;
 
+    //상품 검색(옵션에 대한 정보는 응답에 포함시키지 않음)
     @GetMapping
     public ResponseEntity<List<ProductDto>> searchByName(@RequestParam String name){
         return ResponseEntity.ok(
@@ -26,11 +26,11 @@ public class SearchController {
         );
     }
 
+    //상품 상세정보
     @GetMapping("/detail")
     public ResponseEntity<ProductDto> getDetail(@RequestParam Long productId) {
         return ResponseEntity.ok(
                 ProductDto.from(productSearchService.getByProductId(productId))
         );
     }
-
 }

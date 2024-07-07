@@ -12,7 +12,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductSearchService {
-
     private final ProductRepository productRepository;
 
     public List<Product> searchByName(String name) {

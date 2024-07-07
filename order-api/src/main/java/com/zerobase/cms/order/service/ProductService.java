@@ -33,6 +33,7 @@ public class ProductService {
         product.setName(form.getName());
         product.setDescription(form.getDescription());
 
+        //폼의 옵션 리스트를 돌면서 기존 상품의 옵션들을 찾아 가격이나 수량 등을 변경해준다.
         for (UpdateProductItemForm itemForm : form.getItems()) {
             ProductItem item = product.getProductItems().stream()
                             .filter(pi -> pi.getId().equals(itemForm.getId()))

@@ -8,7 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateProductItemForm {
-
     private Long id;
     private Long productId;
     private String name;

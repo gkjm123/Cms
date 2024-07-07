@@ -1,6 +1,5 @@
 package com.zerobase.cms.order.domain.product;
 
-import com.zerobase.cms.order.domain.model.ProductItem;
 import lombok.*;
 
 import java.util.List;
@@ -11,9 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddProductForm {
-
     private String name;
     private String description;
     private List<AddProductItemForm> items;
-
 }

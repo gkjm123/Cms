@@ -1,15 +1,10 @@
 package com.zerobase.cms.order.service;
 
 import com.zerobase.cms.order.client.RedisClient;
-import com.zerobase.cms.order.domain.model.Product;
-import com.zerobase.cms.order.domain.model.ProductItem;
 import com.zerobase.cms.order.domain.product.AddProductCartForm;
 import com.zerobase.cms.order.domain.redis.Cart;
-import com.zerobase.cms.order.exception.CustomException;
-import com.zerobase.cms.order.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class CartService {
-
     private final RedisClient redisClient;
-    private final ProductSearchService productSearchService;
 
     public Cart getCart(Long customerId) {
         return redisClient.get(customerId, Cart.class);

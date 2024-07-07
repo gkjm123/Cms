@@ -65,16 +65,18 @@ public class CartApplication {
     }
 
     protected Cart refreshCart(Cart cart) {
-
+        //카트의 상품들과 매칭되는 실제 상품들을 가져오고 <상품 ID, 상품> 의 Map 으로 변환
         Map<Long, Product> productMap = productSearchService.getListByProductIds(
                 cart.getProducts().stream().map(Cart.Product::getId).toList())
                 .stream()
                 .collect(Collectors.toMap(Product::getId, product -> product));
 
+        //카트의 상품들을 하나씩 돌면서 실제 상품과 비교해보며 변경사항 체크
         for(int i = 0; i < cart.getProducts().size(); i++) {
             Cart.Product cartProduct = cart.getProducts().get(i);
-
             Product p = productMap.get(cartProduct.getId());
+
+            //매칭된 실제 상품이 없을 경우
             if(p == null) {
                 cart.getProducts().remove(cartProduct);
                 i--;
@@ -82,13 +84,19 @@ public class CartApplication {
                 continue;
             }
 
+            //상품의 ProductItem(옵션들) 을 <옵션 ID, 옵션> 의 Map 으로 변환
             Map<Long, ProductItem> productItemMap = p.getProductItems().stream()
                     .collect(Collectors.toMap(ProductItem::getId, item -> item));
 
+            //변경사항을 저장할 message List
             List<String> tmpMessage = new ArrayList<>();
+
+            //상품의 옵션들을 돌면서 실제 상품의 옵션과 비교, 변경사항 체크
             for (int j = 0; j < cartProduct.getItems().size(); j++) {
                 Cart.ProductItem cartProductItem = cartProduct.getItems().get(j);
                 ProductItem pi = productItemMap.get(cartProductItem.getId());
+
+                //실제 상품의 옵션이 없어졌다.
                 if(pi == null) {
                     cartProduct.getItems().remove(cartProductItem);
                     j--;
@@ -96,6 +104,7 @@ public class CartApplication {
                     continue;
                 }
 
+                //실제 상품의 옵션과 비교했을대 가격이 변경되었는지, 구매하려는 수량(기존 카트 수량+새로 담은 수량) 이 실제 수량보다 큰지 체크
                 boolean isPriceChanged = false, isCountNotEnough = false;
 
                 if (!cartProductItem.getPrice().equals(pi.getPrice())) {
@@ -119,16 +128,18 @@ public class CartApplication {
                 }
             }
 
+            //실제 상품 옵션이 삭제되지는 않았지만 수량이 0 인 상태이다.
             if(cartProduct.getItems().isEmpty()) {
                 cart.getProducts().remove(cartProduct);
                 i--;
-                cart.addMessage(cartProduct.getName() + "상품의 옵션이 모두 없어져 구매가 불가능합니다.");
+                cart.addMessage(cartProduct.getName() + " 상품의 옵션이 모두 없어져 구매가 불가능합니다.");
                 continue;
             }
 
+            //담긴 메시지가 하나라도 있다면 카트의 메시지 부분에 다 넣어준다.
             if(!tmpMessage.isEmpty()) {
                 StringBuilder builder = new StringBuilder();
-                builder.append(cartProduct.getName() + "상품의 변동사항: ");
+                builder.append(cartProduct.getName() + " 상품의 변동사항: ");
                 for (String message : tmpMessage) {
                     builder.append("\n" + message);
                 }
@@ -141,13 +152,11 @@ public class CartApplication {
 
     private boolean addAble(Cart cart, Product product, AddProductCartForm form) {
         Optional<Cart.Product> optionalCartProduct = cart.getProducts().stream().filter(p -> p.getId().equals(form.getId())).findFirst();
-
         Cart.Product cartProduct = optionalCartProduct.get();
-
-        System.out.println(product.getProductItems().get(1).toString());
 
         Map<Long, Integer> cartItemCountMap = cartProduct.getItems().stream()
                 .collect(Collectors.toMap(Cart.ProductItem::getId, Cart.ProductItem::getCount));
+
         Map<Long, Integer> currentItemCountMap = product.getProductItems().stream()
                 .collect(Collectors.toMap(ProductItem::getId, ProductItem::getCount));
 

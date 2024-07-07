@@ -4,7 +4,6 @@ import com.zerobase.cms.user.domain.SignUpForm;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
-import org.hibernate.envers.Audited;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ import java.util.Locale;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@AuditOverride(forClass = BaseEntity.class)
+@AuditOverride(forClass = BaseEntity.class) //BaseEntity 속성까지 envers 로 추적 관리됨
 public class Customer extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

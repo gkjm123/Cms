@@ -4,8 +4,6 @@ import com.zerobase.cms.user.domain.SignUpForm;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.envers.AuditOverride;
-import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +28,6 @@ public class Seller extends BaseEntity{
     private String password;
     private LocalDate birth;
     private String phone;
-
     private LocalDateTime verifyExpiredAt;
     private String verificationCode;
     private boolean verify;

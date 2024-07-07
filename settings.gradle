@@ -1,4 +1,4 @@
 rootProject.name = 'Cms'
 include ':zerobase-domain'
-include 'order-api'
+include ':order-api'
 

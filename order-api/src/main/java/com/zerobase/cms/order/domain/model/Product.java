@@ -23,9 +23,7 @@ public class Product extends BaseEntity{
     private Long id;
 
     private Long sellerId;
-
     private String name;
-
     private String description;
 
     @OneToMany(cascade = CascadeType.ALL)

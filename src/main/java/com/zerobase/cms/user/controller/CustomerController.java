@@ -23,6 +23,7 @@ public class CustomerController {
     private final CustomerService customerService;
     private final CustomerBalanceService customerBalanceService;
 
+    //고객 본인의 아이디, 이메일, 잔액 확인
     @GetMapping("/getInfo")
     public ResponseEntity<CustomerDto> getInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token) {
 
@@ -34,6 +35,7 @@ public class CustomerController {
         return ResponseEntity.ok(CustomerDto.from(c));
     }
 
+    //계좌 잔액 변경
     @PostMapping("/balance")
     public ResponseEntity<Integer> changeBalance(@RequestHeader(name = "X-AUTH-TOKEN") String token
                                                 ,@RequestBody ChangeBalanceForm form) {

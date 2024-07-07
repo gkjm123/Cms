@@ -10,10 +10,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateProductForm {
-
     private Long id;
     private String name;
     private String description;
     private List<UpdateProductItemForm> items;
-
 }

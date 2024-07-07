@@ -22,6 +22,7 @@ public class SellerController {
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
     private final SellerService sellerService;
 
+    //판매자 본인의 아이디, 이메일 확인
     @GetMapping("/getInfo")
     public ResponseEntity<SellerDto> getInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token) {
 

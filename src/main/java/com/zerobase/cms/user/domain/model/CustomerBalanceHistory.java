@@ -3,8 +3,6 @@ package com.zerobase.cms.user.domain.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.annotation.processing.Generated;
-
 @Entity
 @Getter
 @Setter
@@ -12,7 +10,6 @@ import javax.annotation.processing.Generated;
 @AllArgsConstructor
 @Builder
 public class CustomerBalanceHistory extends BaseEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

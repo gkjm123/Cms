@@ -22,12 +22,12 @@ public class Cart {
     private List<Product> products = new ArrayList<>();
     private List<String> messages = new ArrayList<>();
 
-    public Cart(Long customerId) {this.customerId = customerId;}
-
+    //실제 물건에 변경사항이 있을때 카트 확인시 고객에게 알려줄 메시지들
     public void addMessage(String message) {
         messages.add(message);
     }
 
+    //Product(물건) 안에 여러 ProductItem(물건별 옵션들) 이 포함된다.
     @Data
     @Builder
     @AllArgsConstructor
@@ -49,7 +49,6 @@ public class Cart {
                             .map(ProductItem::from).toList())
                     .build();
         }
-
     }
 
     @Data

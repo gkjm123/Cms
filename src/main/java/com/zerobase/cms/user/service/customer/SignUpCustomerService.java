@@ -16,7 +16,6 @@ import static com.zerobase.cms.user.exception.ErrorCode.*;
 @Service
 @RequiredArgsConstructor
 public class SignUpCustomerService {
-
     private final CustomerRepository customerRepository;
 
     public Customer signUp(SignUpForm form) {
@@ -24,8 +23,7 @@ public class SignUpCustomerService {
     }
 
     public boolean isEmailExist(String email) {
-        return customerRepository.findByEmail(email.toLowerCase(Locale.ROOT))
-                .isPresent();
+        return customerRepository.findByEmail(email.toLowerCase(Locale.ROOT)).isPresent();
     }
 
     @Transactional
@@ -56,6 +54,5 @@ public class SignUpCustomerService {
         customer.setVerificationCode(verificationCode);
         customer.setVerifyExpiredAt(LocalDateTime.now().plusDays(1));
         return customer.getVerifyExpiredAt();
-
     }
 }

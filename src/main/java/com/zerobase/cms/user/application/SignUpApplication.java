@@ -32,23 +32,21 @@ public class SignUpApplication {
         if(signUpCustomerService.isEmailExist(form.getEmail())) {
             throw new CustomException(ErrorCode.ALREADY_REGISTER_USER);
         }
-        else {
-            Customer c = signUpCustomerService.signUp(form);
 
-            String code = getRandomCode();
+        Customer c = signUpCustomerService.signUp(form);
+        String code = getRandomCode();
 
-            SendMailForm sendMailForm = SendMailForm.builder()
-                    .from("gkje123@naver.com")
-                    .to(c.getEmail())
-                    .subject("Verificationi Email")
-                    .text(getVerificationEmailBody(c.getEmail(), c.getName(), "customer", code))
-                    .build();
+        SendMailForm sendMailForm = SendMailForm.builder()
+                .from("gkje123@naver.com")
+                .to(c.getEmail())
+                .subject("Verificationi Email")
+                .text(getVerificationEmailBody(c.getEmail(), c.getName(), "customer", code))
+                .build();
 
-            mailgunClient.sendEmail(sendMailForm);
+        mailgunClient.sendEmail(sendMailForm);
 
-            signUpCustomerService.changeCustomerValidateEmail(c.getId(), code);
-            return "회원가입 성공";
-        }
+        signUpCustomerService.changeCustomerValidateEmail(c.getId(), code);
+        return "회원가입 성공";
     }
 
     public String sellerSignUp(SignUpForm form) {
@@ -80,12 +78,10 @@ public class SignUpApplication {
 
     private String getVerificationEmailBody(String email, String name, String type, String code) {
         StringBuilder builder = new StringBuilder();
-        return builder.append("Hello ").append(name).append("! Please Click Link\n\n")
+        return builder.append("Hello ").append(name).append("! 메일 인증을 위해 링크를 클릭해주세요.\n\n")
                 .append("http://localhost:8081/signup/" + type + "/verify?email=")
                 .append(email)
                 .append("&code=")
                 .append(code).toString();
     }
-
-
 }

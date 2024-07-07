@@ -14,17 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class CustomerBalanceService {
-
-    private final CustomerBalanceHistoryRepository CustomerBalanceHistoryRepository;
     private final CustomerRepository customerRepository;
     private final CustomerBalanceHistoryRepository customerBalanceHistoryRepository;
 
     @Transactional(noRollbackFor = {CustomException.class})
-    public CustomerBalanceHistory changeBalance(Long customerId, ChangeBalanceForm form)
-        throws CustomException {
-
-        Customer c = customerRepository.findById(customerId).orElseThrow(
-                () -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    public CustomerBalanceHistory changeBalance(Long customerId, ChangeBalanceForm form) throws CustomException {
+        Customer c = customerRepository.findById(customerId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         CustomerBalanceHistory customerBalanceHistory =
                 customerBalanceHistoryRepository.findFirstByCustomer_IdOrderByIdDesc(customerId)
@@ -47,9 +43,6 @@ public class CustomerBalanceService {
                 .build();
 
         c.setBalance(customerBalanceHistory.getCurrentMoney());
-
         return customerBalanceHistoryRepository.save(customerBalanceHistory);
     }
-
-
 }
