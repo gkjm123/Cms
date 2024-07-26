@@ -1,8 +1,17 @@
 package com.zerobase.cms.order.domain.model;
 
 import com.zerobase.cms.order.domain.product.AddProductItemForm;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.envers.AuditOverride;
 import org.hibernate.envers.Audited;
 
@@ -14,30 +23,31 @@ import org.hibernate.envers.Audited;
 @NoArgsConstructor
 @ToString
 @AuditOverride(forClass = BaseEntity.class)
-public class ProductItem extends BaseEntity{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ProductItem extends BaseEntity {
 
-    private Long sellerId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Audited
-    private String name;
+  private Long sellerId;
 
-    @Audited
-    private Integer price;
+  @Audited
+  private String name;
 
-    private Integer count;
+  @Audited
+  private Integer price;
 
-    @ManyToOne
-    private Product product;
+  private Integer count;
 
-    public static ProductItem of(Long sellerId, AddProductItemForm form) {
-        return ProductItem.builder()
-                .sellerId(sellerId)
-                .name(form.getName())
-                .price(form.getPrice())
-                .count(form.getCount())
-                .build();
-    }
+  @ManyToOne
+  private Product product;
+
+  public static ProductItem of(Long sellerId, AddProductItemForm form) {
+    return ProductItem.builder()
+        .sellerId(sellerId)
+        .name(form.getName())
+        .price(form.getPrice())
+        .count(form.getCount())
+        .build();
+  }
 }

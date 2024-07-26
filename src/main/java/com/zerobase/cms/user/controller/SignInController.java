@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SignInController {
 
-    private final SignInApplication signInApplication;
+  private final SignInApplication signInApplication;
 
-    //고객 로그인
-    @PostMapping("/customer")
-    public ResponseEntity<String> signInCustomer(@RequestBody SignInForm form) {
-        return ResponseEntity.ok(signInApplication.customerLoginToken(form));
-    }
+  //고객 로그인
+  @PostMapping("/customer")
+  public ResponseEntity<String> signInCustomer(@RequestBody SignInForm form) {
+    return ResponseEntity.ok(signInApplication.customerLoginToken(form));
+  }
 
-    //판매자 로그인
-    @PostMapping("/seller")
-    public ResponseEntity<String> signInSeller(@RequestBody SignInForm form) {
-        return ResponseEntity.ok(signInApplication.sellerLoginToken(form));
-    }
+  //판매자 로그인
+  @PostMapping("/seller")
+  public ResponseEntity<String> signInSeller(@RequestBody SignInForm form) {
+    return ResponseEntity.ok(signInApplication.sellerLoginToken(form));
+  }
 
 
 }

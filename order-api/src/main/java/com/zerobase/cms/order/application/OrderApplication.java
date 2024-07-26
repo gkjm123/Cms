@@ -16,44 +16,44 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class OrderApplication {
 
-    private final CartApplication cartApplication;
-    private final UserClient userClient;
-    private final ProductItemService productItemService;
+  private final CartApplication cartApplication;
+  private final UserClient userClient;
+  private final ProductItemService productItemService;
 
-    @Transactional
-    public void order(String token, Cart cart) {
-        Cart orderCart = cartApplication.refreshCart(cart);
-        if (!orderCart.getMessages().isEmpty()) {
-            throw new CustomException(ErrorCode.ORDER_FAIL_CHECK_CART);
-        }
-        CustomerDto customerDto = userClient.getCustomerInfo(token).getBody();
+  @Transactional
+  public void order(String token, Cart cart) {
+    Cart orderCart = cartApplication.refreshCart(cart);
+    if (!orderCart.getMessages().isEmpty()) {
+      throw new CustomException(ErrorCode.ORDER_FAIL_CHECK_CART);
+    }
+    CustomerDto customerDto = userClient.getCustomerInfo(token).getBody();
 
-        int totalPrice = getTotalPrice(cart);
+    int totalPrice = getTotalPrice(cart);
 
-        if (customerDto.getBalance() < totalPrice) {
-            throw new CustomException(ErrorCode.ORDER_FAIL_NO_MONEY);
-        }
-
-        userClient.changeBalance(token, ChangeBalanceForm.builder()
-                        .from("USER")
-                        .money(-totalPrice)
-                        .message("Order")
-                        .build());
-
-        for(Cart.Product product : orderCart.getProducts()) {
-            for (Cart.ProductItem cartItem : product.getItems()) {
-                ProductItem productItem = productItemService.getProductItem(cartItem.getId());
-                productItem.setCount(productItem.getCount()-cartItem.getCount());
-            }
-        }
+    if (customerDto.getBalance() < totalPrice) {
+      throw new CustomException(ErrorCode.ORDER_FAIL_NO_MONEY);
     }
 
-    public Integer getTotalPrice(Cart cart) {
-        int sum = 0;
-        for (Cart.Product p : cart.getProducts()) {
-            sum += p.getItems().stream().mapToInt(Cart.ProductItem::getPrice).sum();
-        }
-        return sum;
+    userClient.changeBalance(token, ChangeBalanceForm.builder()
+        .from("USER")
+        .money(-totalPrice)
+        .message("Order")
+        .build());
 
+    for (Cart.Product product : orderCart.getProducts()) {
+      for (Cart.ProductItem cartItem : product.getItems()) {
+        ProductItem productItem = productItemService.getProductItem(cartItem.getId());
+        productItem.setCount(productItem.getCount() - cartItem.getCount());
+      }
     }
+  }
+
+  public Integer getTotalPrice(Cart cart) {
+    int sum = 0;
+    for (Cart.Product p : cart.getProducts()) {
+      sum += p.getItems().stream().mapToInt(Cart.ProductItem::getPrice).sum();
+    }
+    return sum;
+
+  }
 }

@@ -16,7 +16,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class)
 @RequiredArgsConstructor
 public class ZeroOrderApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(ZeroOrderApplication.class, args);
-    }
+
+  public static void main(String[] args) {
+    SpringApplication.run(ZeroOrderApplication.class, args);
+  }
 }

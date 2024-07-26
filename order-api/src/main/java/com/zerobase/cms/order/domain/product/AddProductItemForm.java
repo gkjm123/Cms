@@ -1,6 +1,10 @@
 package com.zerobase.cms.order.domain.product;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -8,8 +12,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddProductItemForm {
-    private Long productId;
-    private String name;
-    private Integer price;
-    private Integer count;
+
+  private Long productId;
+  private String name;
+  private Integer price;
+  private Integer count;
 }

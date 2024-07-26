@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ChangeBalanceForm {
-    private String from;
-    private String message;
-    private Integer money;
+
+  private String from;
+  private String message;
+  private Integer money;
 }

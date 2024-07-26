@@ -15,36 +15,37 @@ import org.springframework.util.ObjectUtils;
 @RequiredArgsConstructor
 @Slf4j
 public class RedisClient {
-    private final RedisTemplate<String, Object> redisTemplate;
-    private static final ObjectMapper mapper = new ObjectMapper();
 
-    public <T> T get(Long key, Class<T> classType) {
-        return get(key.toString(), classType);
-    }
+  private final RedisTemplate<String, Object> redisTemplate;
+  private static final ObjectMapper mapper = new ObjectMapper();
 
-    private <T> T get(String key, Class<T> classType) {
-        String redisValue = (String)redisTemplate.opsForValue().get(key);
-        if(ObjectUtils.isEmpty(redisValue)) {
-            return null;
-        } else {
-            try {
-                return mapper.readValue(redisValue, classType);
-            } catch (JsonProcessingException e) {
-                log.error("Parsing error", e);
-                return null;
-            }
-        }
-    }
+  public <T> T get(Long key, Class<T> classType) {
+    return get(key.toString(), classType);
+  }
 
-    public void put(Long key, Cart cart) {
-        put(key.toString(), cart);
+  private <T> T get(String key, Class<T> classType) {
+    String redisValue = (String) redisTemplate.opsForValue().get(key);
+    if (ObjectUtils.isEmpty(redisValue)) {
+      return null;
+    } else {
+      try {
+        return mapper.readValue(redisValue, classType);
+      } catch (JsonProcessingException e) {
+        log.error("Parsing error", e);
+        return null;
+      }
     }
+  }
 
-    private void put(String key, Cart cart) {
-        try {
-            redisTemplate.opsForValue().set(key, mapper.writeValueAsString(cart));
-        } catch (JsonProcessingException e) {
-            throw new CustomException(ErrorCode.CART_CHANGE_FAIL);
-        }
+  public void put(Long key, Cart cart) {
+    put(key.toString(), cart);
+  }
+
+  private void put(String key, Cart cart) {
+    try {
+      redisTemplate.opsForValue().set(key, mapper.writeValueAsString(cart));
+    } catch (JsonProcessingException e) {
+      throw new CustomException(ErrorCode.CART_CHANGE_FAIL);
     }
+  }
 }

@@ -7,10 +7,11 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class SellerDto {
-    private Long id;
-    private String email;
 
-    public static SellerDto from(Seller seller) {
-        return new SellerDto(seller.getId(), seller.getEmail());
-    }
+  private Long id;
+  private String email;
+
+  public static SellerDto from(Seller seller) {
+    return new SellerDto(seller.getId(), seller.getEmail());
+  }
 }

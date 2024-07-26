@@ -15,21 +15,22 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SignInApplication {
-    private final CustomerService customerService;
-    private final SellerService sellerService;
-    private final JwtAuthenticationProvider provider;
 
-    public String customerLoginToken(SignInForm form) {
-        Customer c = customerService.findValidCustomer(form.getEmail(), form.getPassword())
-                .orElseThrow( () -> new CustomException(ErrorCode.SIGN_IN_ERROR));
+  private final CustomerService customerService;
+  private final SellerService sellerService;
+  private final JwtAuthenticationProvider provider;
 
-        return provider.createToken(c.getEmail(), c.getId(), UserType.CUSTOMER);
-    }
+  public String customerLoginToken(SignInForm form) {
+    Customer c = customerService.findValidCustomer(form.getEmail(), form.getPassword())
+        .orElseThrow(() -> new CustomException(ErrorCode.SIGN_IN_ERROR));
 
-    public String sellerLoginToken(SignInForm form) {
-        Seller c = sellerService.findValidSeller(form.getEmail(), form.getPassword())
-                .orElseThrow( () -> new CustomException(ErrorCode.SIGN_IN_ERROR));
+    return provider.createToken(c.getEmail(), c.getId(), UserType.CUSTOMER);
+  }
 
-        return provider.createToken(c.getEmail(), c.getId(), UserType.CUSTOMER);
-    }
+  public String sellerLoginToken(SignInForm form) {
+    Seller c = sellerService.findValidSeller(form.getEmail(), form.getPassword())
+        .orElseThrow(() -> new CustomException(ErrorCode.SIGN_IN_ERROR));
+
+    return provider.createToken(c.getEmail(), c.getId(), UserType.CUSTOMER);
+  }
 }
