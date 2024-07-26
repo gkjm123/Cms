@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class SellerController {
 
-    private final JwtAuthenticationProvider jwtAuthenticationProvider;
-    private final SellerService sellerService;
+  private final JwtAuthenticationProvider jwtAuthenticationProvider;
+  private final SellerService sellerService;
 
-    //판매자 본인의 아이디, 이메일 확인
-    @GetMapping("/getInfo")
-    public ResponseEntity<SellerDto> getInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token) {
+  //판매자 본인의 아이디, 이메일 확인
+  @GetMapping("/getInfo")
+  public ResponseEntity<SellerDto> getInfo(@RequestHeader(name = "X-AUTH-TOKEN") String token) {
 
-        UserVo vo = jwtAuthenticationProvider.getUserVo(token);
+    UserVo vo = jwtAuthenticationProvider.getUserVo(token);
 
-        Seller s = sellerService.findByIdAndEmail(vo.getId(), vo.getEmail())
-                .orElseThrow( () -> new CustomException(ErrorCode.NOT_FOUND_USER));
+    Seller s = sellerService.findByIdAndEmail(vo.getId(), vo.getEmail())
+        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        return ResponseEntity.ok(SellerDto.from(s));
-    }
+    return ResponseEntity.ok(SellerDto.from(s));
+  }
 }

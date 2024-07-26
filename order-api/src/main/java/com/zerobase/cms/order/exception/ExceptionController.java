@@ -11,17 +11,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class ExceptionController {
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ExceptionResponse> customRequestException(final CustomException c) {
-        log.warn("예외 발생: {}", c.getMessage());
-        return ResponseEntity.badRequest().body(new ExceptionResponse(c.getMessage(), c.getErrorCode()));
-    }
 
-    @Getter
-    @ToString
-    @AllArgsConstructor
-    public static class ExceptionResponse{
-        private String message;
-        private ErrorCode errorCode;
-    }
+  @ExceptionHandler(CustomException.class)
+  public ResponseEntity<ExceptionResponse> customRequestException(final CustomException c) {
+    log.warn("예외 발생: {}", c.getMessage());
+    return ResponseEntity.badRequest()
+        .body(new ExceptionResponse(c.getMessage(), c.getErrorCode()));
+  }
+
+  @Getter
+  @ToString
+  @AllArgsConstructor
+  public static class ExceptionResponse {
+
+    private String message;
+    private ErrorCode errorCode;
+  }
 }

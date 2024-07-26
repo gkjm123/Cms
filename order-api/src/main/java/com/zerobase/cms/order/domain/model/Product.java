@@ -26,7 +26,7 @@ public class Product extends BaseEntity{
     private String name;
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductItem> productItems = new ArrayList<>();
 
     public static Product of(Long sellerId, AddProductForm form) {
